@@ -1,20 +1,20 @@
 <template>
-  <div class="h-4/6 bg-white shadow-sm rounded-md px-5 pt-5 w-8/12 h-5/6">
+  <div class="h-4/6 bg-white shadow-sm rounded-md px-5 pt-5 w-8/12">
     <div id="toolbar" class="p-2 lg:flex-row flex mb-6 flex-col">
       <button
-        class="border py-1 px-5 rounded-md mx-1 flex items-center justify-center font-light"
+        class="border py-1 px-5 rounded-md mx-1 flex items-center justify-center font-light sm:mt-1"
       >
         <i class="ri-add-line text-2xl mr-1"></i>
         Agregar
       </button>
       <button
-        class="border py-1 px-5 rounded-md mx-1 flex items-center justify-center font-light"
+        class="border py-1 px-5 rounded-md mx-1 flex items-center justify-center font-light sm:mt-1"
       >
         <i class="ri-delete-bin-line ri-add-line text-xl mr-1"></i>
         Eliminar
       </button>
       <button
-        class="border py-1 px-5 rounded-md mx-1 flex items-center justify-center font-light"
+        class="border py-1 px-5 rounded-md mx-1 flex items-center justify-center font-light sm:mt-1"
       >
         <i class="ri-arrow-left-right-line ri-add-line text-xl mr-1"></i>
         Modificar
