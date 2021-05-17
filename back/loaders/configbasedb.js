@@ -3,7 +3,11 @@ import fs from "fs";
 import csvParser from "../utils/csvParser.js";
 
 export default async () => {
-    await mongoose.connection.db.dropCollection("consumptions");
+    try {
+        await mongoose.connection.db.dropCollection("consumptions");
+    } catch (err) {
+
+    }
 
     const ConsumptionHistory = mongoose.model("Consumption", { headers: Array, rows: Array });
 

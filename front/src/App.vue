@@ -1,6 +1,6 @@
 <template>
   <div class="h-screen flex items-center justify-center bg-gray-100">
-    <CrudDisplay :data="test" />
+    <CrudDisplay :rowData="rowData" />
   </div>
 </template>
 
@@ -20,7 +20,8 @@ export default {
     };
   },
   mounted: async () => {
-    rowData = await fetch("http://locahost:3000/api/consumption").then(res => res.json());
+    rowData = await fetch("/api/consumption").then(res => res.json());
+    rowData = rowData.map(el => el.rows).flat();
   }
 };
 </script>

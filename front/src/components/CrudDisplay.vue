@@ -22,15 +22,15 @@
     </div>
     <div id="display-table" class="overflow-x-hidden lg:h-5/6 scrollbar-thin px-3 h-4/6">
       <table class="w-full h-full">
-        <tr v-for="item in data" :key="item.key">
+        <tr v-for="item in rowData.rows" :key="item[0]">
           <td class="w-12 border">
             <input type="checkbox" name="" id="" class="h-full m-auto block" />
           </td>
           <td class="p-2 border">
-            {{ item.value }}
+            {{ item[0] }}
           </td>
           <td class="p-2 border">
-            {{ item.value2 }}
+            {{ item[1] }}
           </td>
         </tr>
       </table>
@@ -42,7 +42,7 @@
 export default {
   name: "CrudDisplay",
   props: {
-    data: Array,
+    rowData: Array,
   },
 };
 </script>
