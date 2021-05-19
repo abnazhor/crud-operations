@@ -1,11 +1,11 @@
-import mongoose from "mongoose";
+import mongodb from "mongodb";
+
+const { MongoClient } = mongodb;
+const url = "mongodb://localhost:27017";
+const client = new MongoClient(url, {useUnifiedTopology: true});
 
 export default async () => {
-    const url = "mongodb://localhost:27017/consumption";
-    const connection = await mongoose.connect(url, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    });
+    await client.connect();
 
-    global.mongoose = mongoose;
+    global.client = client;
 }

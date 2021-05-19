@@ -1,13 +1,11 @@
 <template>
   <div class="h-screen flex items-center justify-center bg-gray-100">
-    <CrudDisplay :rowData="rowData" />
+    <CrudDisplay :data="data" :headers="headers" />
   </div>
 </template>
 
 <script>
 import CrudDisplay from "./components/CrudDisplay.vue";
-
-let rowData = [];
 
 export default {
   name: "App",
@@ -16,12 +14,21 @@ export default {
   },
   data() {
     return {
-      rowData,
+      data: [],
+      headers: []
     };
   },
-  mounted: async () => {
-    rowData = await fetch("/api/consumption").then(res => res.json());
-    rowData = rowData.map(el => el.rows).flat();
-  }
+  created() {
+    this.queryData();
+  },
+  methods: {
+    queryData: async function () {
+      const requestData = await fetch("/api/consumption").then((res) =>
+        res.json()
+      );
+      this.headers = requestData[0].headers;
+      this.data = requestData.map((el) => el.rows).flat().filter(el => !!el.date);
+    },
+  },
 };
 </script>
