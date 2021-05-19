@@ -31,4 +31,4 @@ npm start
 
 And now it will be possible to load the web application on `http://localhost:3000`.
 
-![image-20210520002428555](/home/jorge/.config/Typora/typora-user-images/image-20210520002428555.png)
+![image-20210520002428555](https://i.imgur.com/G2ruLCp.png)
