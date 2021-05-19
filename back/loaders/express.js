@@ -11,7 +11,7 @@ export default async ({ app }) => {
         }
     ));
 
-    app.use(express.urlencoded({ extended: true }));
+    app.use(express.urlencoded({ extended: false }));
     app.use(express.json());
 
     app.use(config.api.prefix, routes());

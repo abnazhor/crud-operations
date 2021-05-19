@@ -1,13 +1,42 @@
 import mongodb from "mongodb";
-const {ObjectId} = mongodb;
+const { ObjectId } = mongodb;
 
 export default (app) => {
-    app.get("/consumption", async (req, res) => {
+    app.get("/consumptions", async (req, res) => {
         const db = client.db("consumptions");
 
         const consumptions = await db.collection("consumptions").find().toArray();
 
         res.status(200).send(consumptions)
+    });
+    
+    app.get("/consumption/:consumptionid", async (req, res) => {
+        const consumptionId = req.params.consumptionid;
+        const db = client.db("consumptions");
+
+        const consumption = await db.collection("consumptions").findOne({
+            _id: ObjectId(consumptionId)
+        });
+
+        res.status(200).send(consumption)
+    });
+
+    app.post("/consumption", async (req, res) => {
+        const newRowData = req.body;
+
+        const db = client.db("consumptions");
+
+        const result = await db.collection("consumptions").insertOne(
+            {
+                date: newRowData.date,
+                hour: newRowData.hour,
+                consumption: newRowData.consumption,
+                price: newRowData.price,
+                costPerHour: newRowData.costPerHour
+            }
+        );
+
+        res.status(200).send({ inserted: result.insertedCount === 1 });
     });
 
     app.put("/consumption", async (req, res) => {
@@ -15,9 +44,9 @@ export default (app) => {
 
         const db = client.db("consumptions");
 
-        db.collection("consumptions").updateOne(
+        const result = await db.collection("consumptions").updateOne(
             {
-                uuid: modifications.uuid
+                _id: ObjectId(modifications.consumptionId)
             },
             {
                 $set: {
@@ -29,6 +58,8 @@ export default (app) => {
                 }
             }
         )
+
+        res.status(200).send({updated: result.modifiedCount === 1});
     });
 
     app.delete("/consumption/:consumptionId", async (req, res) => {
