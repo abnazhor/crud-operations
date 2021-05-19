@@ -6,7 +6,7 @@ CRUD application designed in Vue.js, with Express.js and MongoDB as back-end.
 
 ## Requirements
 
-To run this application, you must have already installed on your base system the following dependencies:
+To run this application, you must have already installed on your system the following dependencies:
 
 - MongoDB
 - Node.js
