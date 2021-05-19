@@ -1,6 +1,6 @@
 <template>
   <div class="h-screen flex items-center justify-center bg-gray-100">
-    <CrudDisplay :data="data" :headers="headers" />
+    <CrudDisplay :data="data" :headers="headers" @deletion="deleteRow"/>
   </div>
 </template>
 
@@ -15,7 +15,7 @@ export default {
   data() {
     return {
       data: [],
-      headers: []
+      headers: [],
     };
   },
   created() {
@@ -26,9 +26,24 @@ export default {
       const requestData = await fetch("/api/consumption").then((res) =>
         res.json()
       );
-      this.headers = requestData[0].headers;
-      this.data = requestData.map((el) => el.rows).flat().filter(el => !!el.date);
+      this.data = requestData.flat().filter((el) => !!el.date);
+      this.headers = [
+        "Fecha",
+        "Hora",
+        "Consumo (Wh)",
+        "Precio (€/kWh)",
+        "Coste por hora (€)",
+      ];
     },
+    async deleteRow(payload) {
+      const result = await fetch(`http://localhost:3000/api/consumption/${payload.deletionId}`, {
+        method: "DELETE"
+      }).then(res => res.json());
+
+      if(result.deleted) {
+        this.data = this.data.filter(el => el._id !== payload.deletionId);
+      }
+    }
   },
 };
 </script>

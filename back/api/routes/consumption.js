@@ -1,3 +1,6 @@
+import mongodb from "mongodb";
+const {ObjectId} = mongodb;
+
 export default (app) => {
     app.get("/consumption", async (req, res) => {
         const db = client.db("consumptions");
@@ -28,9 +31,16 @@ export default (app) => {
         )
     });
 
-    app.delete("/consumption/:consumptionid", async (req, res) => {
-        const consumptionid = req.params.consumptionid;
+    app.delete("/consumption/:consumptionId", async (req, res) => {
+        const consumptionId = req.params.consumptionId;
 
-        console.log(consumptionid);
+        const collection = client.db("consumptions").collection("consumptions");
+        await collection.deleteOne({
+            _id: ObjectId(consumptionId)
+        })
+
+        res.status(200).send({
+            deleted: true
+        })
     });
 }

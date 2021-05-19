@@ -17,19 +17,14 @@ export default async () => {
 
     for (const file of dir) {
         const convertedCsv = csvParser(`./data/${file}`);
-
-        db.collection("consumptions").insertOne({
-            headers: convertedCsv.headers,
-            rows: convertedCsv.rows.map(el => {
-                return {
-                    uuid: el[0],
-                    date: el[1],
-                    hour: el[2],
-                    consumption: el[3],
-                    price: el[4],
-                    costPerHour: el[5]
-                }
-            })
-        });
+        for(const row of convertedCsv.rows) {
+            db.collection("consumptions").insertOne({
+                date: row[1],
+                hour: row[2],
+                consumption: row[3],
+                price: row[4],
+                costPerHour: row[5]
+            });
+        }
     }
 }
